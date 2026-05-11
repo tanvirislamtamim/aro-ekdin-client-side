@@ -3,8 +3,8 @@ import React from 'react';
 export default function Ultimate3DCarousel() {
   const images = [
     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145490/Action4_r4hccj.jpg',
-     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145489/Action3_skmfkv.jpg',
-      'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145487/Action1_rsrzvd.jpg', 
+    'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145489/Action3_skmfkv.jpg',
+    'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145487/Action1_rsrzvd.jpg', 
     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145486/Action5_mhdswz.jpg',
     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145484/Action2_xjcmrw.jpg',
     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145490/Action4_r4hccj.jpg',
@@ -12,18 +12,15 @@ export default function Ultimate3DCarousel() {
     'https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145487/Action1_rsrzvd.jpg', 
   ];
 
- 
   const angleOfRotation = 360 / images.length;
 
   return (
-    <div className="w-full min-h-screen bg-[#030303] flex flex-col items-center justify-center overflow-hidden font-sans pb-0 lg:pb-12">
+    <div className="w-full min-h-screen bg-[#030303] flex flex-col items-center pt-10 justify-center overflow-hidden font-sans pb-0 lg:pb-12">
       
-   
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:32px_32px]"></div>
       </div>
 
-   
       <div className="relative z-20 text-center mb-24 space-y-3 px-4">
         <p className="text-sm uppercase tracking-[0.4em] text-cyan-400/80 font-medium">Virtual Exhibition</p>
         <h1 className="text-5xl md:text-8xl font-extrabold tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent italic filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
@@ -32,17 +29,14 @@ export default function Ultimate3DCarousel() {
         <div className="h-0.5 w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto rounded-full"></div>
       </div>
 
-   
       <div className="relative w-full flex items-center justify-center perspective-[3000px] py-20">
         
-   
         <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#030303] to-transparent z-10 pointer-events-none"></div>
         <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#030303] to-transparent z-10 pointer-events-none"></div>
 
         {/* 3D Carousel Spinner - the main animated element */}
-        <div className="carousel-spinner-3d group">
+        <div className="carousel-spinner-3d">
           {images.map((src, index) => {
-         
             const rotation = index * angleOfRotation;
             return (
               <div 
@@ -52,22 +46,20 @@ export default function Ultimate3DCarousel() {
                   '--rotation': `${rotation}deg`,
                 }}
               >
-               
-                <div className="card-3d group/card relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-gray-900/50 backdrop-blur-sm transition-all duration-500 ease-out shadow-[0_10px_40px_rgba(0,0,0,0.5)] group-hover/card:shadow-[0_20px_60px_rgba(59,130,246,0.3)]">
+                <div className="card-3d relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-gray-900/50 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
                   <img 
                     src={src} 
                     alt={`Action ${index + 1}`} 
-                    className="h-full w-full object-cover transform transition-transform duration-700 group-hover/card:scale-110"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                   />
-                  
                   
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 p-6 flex flex-col justify-end">
                     <div className="w-fit px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/50 text-cyan-200 text-xs mb-3">
                       Action #{index + 1}
                     </div>
-                    <p className="text-white font-bold text-2xl tracking-tight translate-y-2 group-hover/card:translate-y-0 transition-transform duration-500">Aro Ekdin</p>
-                    <p className="text-gray-400 text-sm opacity-0 group-hover/card:opacity-100 transition-opacity delay-100 duration-500">Professional League</p>
+                    <p className="text-white font-bold text-2xl tracking-tight">Aro Ekdin</p>
+                    <p className="text-gray-400 text-sm">Professional League</p>
                   </div>
                 </div>
               </div>
@@ -91,10 +83,6 @@ export default function Ultimate3DCarousel() {
           animation: spin3D 40s linear infinite;
         }
 
-        .carousel-spinner-3d:hover {
-          animation-play-state: paused;
-        }
-
         /* Each image wrap */
         .card-3d-wrap {
           position: absolute;
@@ -102,20 +90,10 @@ export default function Ultimate3DCarousel() {
           height: 100%;
           top: 0;
           left: 0;
-         
           transform: rotateY(var(--rotation)) translateZ(800px); 
-          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
           transform-style: preserve-3d;
         }
 
-       
-        .card-3d-wrap:hover {
-          /* হভার করলে কার্ডটি আপনার দিকে এগিয়ে আসবে */
-          transform: rotateY(var(--rotation)) translateZ(900px) translateY(-20px);
-          z-index: 50; /* সবার উপরে থাকবে */
-        }
-
-        
         @keyframes spin3D {
           from {
             transform: rotateY(0deg);
@@ -125,7 +103,6 @@ export default function Ultimate3DCarousel() {
           }
         }
 
-        
         @media (max-width: 768px) {
           .carousel-spinner-3d {
             width: 250px;
@@ -133,9 +110,6 @@ export default function Ultimate3DCarousel() {
           }
           .card-3d-wrap {
             transform: rotateY(var(--rotation)) translateZ(500px);
-          }
-          .card-3d-wrap:hover {
-            transform: rotateY(var(--rotation)) translateZ(550px) translateY(-10px);
           }
         }
       `}</style>

@@ -41,7 +41,7 @@ const AnimatedCounter = ({ value, suffix = "" }) => {
 
 // Floating particles - REDUCED COUNT & GPU ACCELERATED
 const FloatingParticles = () => {
-  const particles = useMemo(() => 
+  const particles = useMemo(() =>
     Array.from({ length: 25 }, (_, i) => ({
       id: i,
       size: Math.random() * 4 + 2,
@@ -253,19 +253,39 @@ const AboutUs = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ staggerChildren: 0.05, delayChildren: 0.2 }}
-            className="mb-6"
+            className="mb-6 flex flex-wrap justify-center items-center"
           >
             {["Aro", "Ekdin", "Team"].map((word, idx) => (
               <motion.span
                 key={idx}
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 120, damping: 12, delay: idx * 0.08 }}
-                className="inline-block text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mx-2"
+                transition={{
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 12,
+                  delay: idx * 0.08,
+                }}
+                className="inline-flex items-center text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mx-2"
               >
-                <span className="bg-gradient-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                  {word}
-                </span>
+                {word === "Aro" ? (
+                  <>
+                    <span className="bg-gradient-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
+                      Ar
+                    </span>
+
+                    {/* IMAGE as "o" */}
+                    <img
+                      src="https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145975/Logo_qzb1xk.jpg"
+                      alt="o"
+                      className="w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 object-cover rounded-full mx-1 border-2 border-white"
+                    />
+                  </>
+                ) : (
+                  <span className="bg-gradient-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
+                    {word}
+                  </span>
+                )}
               </motion.span>
             ))}
           </motion.h1>
@@ -294,8 +314,8 @@ const AboutUs = () => {
             transition={{ delay: 0.9 }}
             className="flex flex-wrap justify-center gap-4 mt-12"
           >
-           
-           
+
+
           </motion.div>
         </div>
 
@@ -317,7 +337,7 @@ const AboutUs = () => {
               About Us
             </motion.h2>
             <motion.p className="text-gray-300 leading-relaxed text-lg">
-              "Aro Ekdin Team" is a group of energetic young people who consider sports an integral part of life. 
+              "Aro Ekdin Team" is a group of energetic young people who consider sports an integral part of life.
               Fighting on the field teaches patience, unity, and leadership.
             </motion.p>
             <div className="grid grid-cols-2 gap-4">

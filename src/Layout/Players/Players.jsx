@@ -4,6 +4,8 @@ import { useLoaderData } from 'react-router';
 
 const Players = () => {
     const data = useLoaderData();
+
+
     const [selectedPosition, setSelectedPosition] = useState("All");
     const [searchText, setSearchText] = useState("");
 
@@ -20,6 +22,7 @@ const Players = () => {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
+
             <style>{`
                 @keyframes cardEntrance {
                     from {
@@ -48,7 +51,7 @@ const Players = () => {
                     <div className="h-1 w-20 bg-cyan-300 mx-auto mt-4 rounded-full opacity-80"></div>
                 </div>
 
-                {/* 🔍 Search Bar */}
+                {/* Search */}
                 <div className="flex justify-center mb-6">
                     <input
                         type="text"
@@ -59,7 +62,7 @@ const Players = () => {
                     />
                 </div>
 
-                {/* Filter Buttons */}
+                {/* Filter */}
                 <div className="flex flex-wrap justify-center gap-3 mb-10">
                     {["All", "Setter", "Libero", "Middle Blocker", "Outside Hitter", "Opposite Hitter"].map(pos => (
                         <button
@@ -76,25 +79,27 @@ const Players = () => {
                     ))}
                 </div>
 
-                <Suspense fallback={
-                    <div className="flex justify-center items-center h-64">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-300"></div>
-                    </div>
-                }>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
-                        {
-                            filteredPlayers.map((player, index) => (
-                                <div 
-                                    key={player.id} 
-                                    className="animate-card-load w-full flex justify-center"
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                >
-                                    <Player player={player} />
-                                </div>
-                            ))
-                        }
-                    </div>
-                </Suspense>
+                {/* 🔥 GRID (FIXED LOADING BEHAVIOR) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+
+                    {/* If no data → skeleton */}
+                    {!data || data.length === 0
+                        ? [...Array(8)].map((_, i) => (
+                            <Player key={i} player={null} />
+                        ))
+                        : filteredPlayers.map((player, index) => (
+                            <div
+                                key={player.id}
+                                className="animate-card-load w-full flex justify-center"
+                                style={{ animationDelay: `${index * 0.1}s` }}
+                            >
+                                <Player player={player} index={index} />
+                            </div>
+                        ))
+                    }
+
+                </div>
+
             </div>
         </div>
     );
