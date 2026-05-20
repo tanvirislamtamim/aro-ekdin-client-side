@@ -13,8 +13,8 @@ const TopPlayers = () => {
     <div>
       {/* ===== FEATURED PLAYERS SECTION ===== */}
       <section className="relative py-28 px-6 md:px-20 bg-black overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-blue-900/5 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-cyan-500/20 to-transparent"></div>
 
         <div className="text-center mb-20 relative z-10">
           <motion.div
@@ -27,7 +27,7 @@ const TopPlayers = () => {
               THE ELITE
             </span>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter">
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent">
                 Top Performers
               </span>
             </h2>

@@ -8,7 +8,7 @@ const Player = ({ player, index }) => {
   if (!player) {
     return (
       <div className="flex justify-center w-full p-2">
-        <div className="w-full max-w-[320px] min-h-[320px] rounded-2xl p-6 bg-gray-900 animate-pulse flex flex-col items-center justify-between">
+        <div className="w-full max-w-[320px] min-h-80 rounded-2xl p-6 bg-gray-900 animate-pulse flex flex-col items-center justify-between">
           <div className="w-full flex flex-col items-center">
             <div className="h-28 w-28 rounded-full bg-gray-700 mb-5"></div>
             <div className="h-6 w-3/4 bg-gray-700 rounded mb-3"></div>
@@ -93,7 +93,7 @@ const Player = ({ player, index }) => {
       `}</style>
 
       <div 
-        className="modern-3d-card animate-card relative w-full max-w-[320px] min-h-[320px] rounded-2xl overflow-hidden shadow-2xl p-6 flex flex-col items-center text-center justify-between"
+        className="modern-3d-card animate-card relative w-full max-w-[320px] min-h-80 rounded-2xl overflow-hidden shadow-2xl p-6 flex flex-col items-center text-center justify-between"
         style={{ animationDelay: `${index * 0.15}s` }}
       >
         
@@ -133,11 +133,11 @@ const Player = ({ player, index }) => {
             </div>
           </div>
 
-          <div className="w-12 h-0.5 bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 rounded-full mt-1 mb-4"></div>
+          <div className="w-12 h-0.5 bg-linear-to-r from-blue-400 via-cyan-300 to-indigo-400 rounded-full mt-1 mb-4"></div>
         </div>
 
         <div className="w-full">
-          <Link to={`/playerDetails/${id}`}>
+          <Link to={`/players/${player._id}`}>
             <button className="buy-button w-full py-3 rounded-xl text-black font-bold shadow-lg">
               View Details
             </button>

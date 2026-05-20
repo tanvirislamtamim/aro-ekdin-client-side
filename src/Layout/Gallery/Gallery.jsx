@@ -5,33 +5,30 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Download from "yet-another-react-lightbox/plugins/download";
 import "yet-another-react-lightbox/styles.css";
 
+import { useQuery } from "@tanstack/react-query";
+
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import axios from "axios";
+
 const Gallery = () => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("new");
+  const axiosSecure = useAxiosSecure();
 
-  // New Photos (Aro Ekdin 2026 collection)
-  const newPhotos = [
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145921/IMG_2008_yyofuj.jpg", title: "Aro Ekdin 2026", year: "2026" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145931/IMG_2025_w8k6uq.jpg", title: "Aro Ekdin 2026", year: "2026" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145929/IMG_2301_mlqipy.jpg", title: "Aro Ekdin 2026", year: "2026" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145955/IMG_2323_j0wftq.jpg", title: "Aro Ekdin 2026", year: "2026" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145931/IMG_1834_s6mhbs.jpg", title: "Aro Ekdin 2026", year: "2026" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145929/IMG_2281_rqbpqy.jpg", title: "Aro Ekdin 2026", year: "2026" },
-  ];
+  // ডেটা ফেচিং
+const { data: allPhotos = [], isLoading } = useQuery({
+  queryKey: ["photos"],
+  queryFn: async () => {
+    const res = await axiosSecure.get("/photos");
+    return res.data;
+  },
+});
 
-  // Old Photos (Classic memories collection)
-  const oldPhotos = [
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145705/Old1_tytrmd.jpg", title: "Memories 2023", year: "2023" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145707/Old2_awkwax.jpg", title: "Memories 2018", year: "2018" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145705/Old3_vhwjjk.jpg", title: "Memories 2018", year: "2018" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145742/Old7_scuigj.jpg", title: "Memories 2025", year: "2025" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145709/Old5_rjhhyp.jpg", title: "Memories 2025", year: "2025" },
-    { src: "https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145715/Old6_emtfp2.jpg", title: "Memories 2025", year: "2025" },
-    
-  ];
-
-  const currentPhotos = activeTab === "new" ? newPhotos : oldPhotos;
+// সেফ ফিল্টারিং
+const currentPhotos = Array.isArray(allPhotos) 
+  ? allPhotos.filter((item) => item?.category === activeTab) 
+  : [];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -95,8 +92,16 @@ const Gallery = () => {
     },
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        Loading...
+      </div>
+    );
+  }
+  console.log(currentPhotos.url);
   return (
-    <div className="relative bg-gradient-to-br from-black via-gray-950 to-black text-white py-20 px-4 overflow-hidden">
+    <div className="relative bg-linear-to-br from-black via-gray-950 to-black text-white py-20 px-4 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
@@ -125,7 +130,7 @@ const Gallery = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* TITLE - FIXED: fully visible, no cut-off */}
+        {/* TITLE */}
         <motion.div
           initial={{ opacity: 0, y: -50, rotateX: -20 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
@@ -134,7 +139,7 @@ const Gallery = () => {
           style={{ perspective: 1000 }}
         >
           <motion.h2
-            className="text-5xl sm:text-7xl md:text-8xl font-black  tracking-tight overflow-visible whitespace-normal break-words inline-block max-w-full px-2"
+            className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight overflow-visible whitespace-normal wrap-break-word inline-block max-w-full px-2"
             animate={{
               textShadow: [
                 "0 0 0px rgba(255,255,255,0)",
@@ -144,16 +149,18 @@ const Gallery = () => {
             }}
             transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
           >
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300  bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 via-cyan-300 bg-clip-text text-transparent">
               GALLERY
             </span>
           </motion.h2>
+
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "6rem" }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="h-1 bg-gradient-to-r  from-blue-400 via-cyan-300   mx-auto mt-4 rounded-full"
+            className="h-1 bg-linear-to-r from-blue-400 via-cyan-300 mx-auto mt-4 rounded-full"
           />
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.7 }}
@@ -184,16 +191,18 @@ const Gallery = () => {
                 : "border-white/20 text-gray-300 hover:text-white"
             }`}
             style={{
-              background: activeTab === "new" 
-                ? "linear-gradient(135deg, rgba(6,182,212,0.2), rgba(59,130,246,0.2))"
-                : "rgba(255,255,255,0.05)",
+              background:
+                activeTab === "new"
+                  ? "linear-gradient(135deg, rgba(6,182,212,0.2), rgba(59,130,246,0.2))"
+                  : "rgba(255,255,255,0.05)",
             }}
           >
             <span className="relative z-10">📸 New Photos</span>
+
             {activeTab === "new" && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/20 to-black"
+                className="absolute inset-0 rounded-xl bg-linear-to-r from-cyan-500/20 to-black"
                 transition={{ type: "spring", duration: 0.5 }}
               />
             )}
@@ -212,16 +221,18 @@ const Gallery = () => {
                 : "border-white/20 text-gray-300 hover:text-white"
             }`}
             style={{
-              background: activeTab === "old"
-                ? "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(6,182,212,0.2))"
-                : "rgba(255,255,255,0.05)",
+              background:
+                activeTab === "old"
+                  ? "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(6,182,212,0.2))"
+                  : "rgba(255,255,255,0.05)",
             }}
           >
             <span className="relative z-10">🎞️ Old Photos</span>
+
             {activeTab === "old" && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-black to-cyan-500/20"
+                className="absolute inset-0 rounded-xl bg-linear-to-r from-black to-cyan-500/20"
                 transition={{ type: "spring", duration: 0.5 }}
               />
             )}
@@ -255,30 +266,21 @@ const Gallery = () => {
                   setOpen(true);
                 }}
               >
-                <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm shadow-2xl transition-all duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-linear-to-br from-white/10 to-white/5 backdrop-blur-sm shadow-2xl transition-all duration-300">
+                  <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                   <div className="relative overflow-hidden">
                     <img
-                      src={image.src}
+                    
+                      src={image.url}
                       alt={image.title}
                       className="w-full h-72 md:h-80 object-cover object-center transform transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                       decoding="async"
-                      style={{
-                        imageRendering: "auto",
-                        transform: "translateZ(0)",
-                      }}
-                      onError={(e) => {
-                        const target = e.target;
-                        if (!target.src.includes("placeholder")) {
-                          target.src = `https://picsum.photos/seed/${image.title.replace(/\s/g, '')}/600/400`;
-                        }
-                      }}
                     />
-                    
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                    
+
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+
                     <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-cyan-400/50 transition-all duration-300 pointer-events-none" />
                   </div>
 
@@ -286,6 +288,7 @@ const Gallery = () => {
                     <p className="text-center text-lg font-bold italic tracking-wide">
                       {image.title}
                     </p>
+
                     {image.year && (
                       <motion.p
                         initial={{ opacity: 0, y: 10 }}
@@ -296,9 +299,6 @@ const Gallery = () => {
                       </motion.p>
                     )}
                   </div>
-
-                  <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/30 rounded-tr-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/30 rounded-bl-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </motion.div>
             ))}
@@ -310,7 +310,10 @@ const Gallery = () => {
           animate={{ opacity: 0.6 }}
           className="text-center mt-12 text-gray-500 text-sm"
         >
-          {currentPhotos.length} photos • {activeTab === "new" ? "Latest moments" : "Cherished memories"}
+          {currentPhotos.length} photos •{" "}
+          {activeTab === "new"
+            ? "Latest moments"
+            : "Cherished memories"}
         </motion.div>
       </div>
 
@@ -318,8 +321,8 @@ const Gallery = () => {
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={currentPhotos.map((img) => ({ 
-          src: img.src,
+        slides={currentPhotos.map((img) => ({
+          src: img.url,
           title: img.title,
           description: img.year,
         }))}
@@ -337,7 +340,9 @@ const Gallery = () => {
         }}
         styles={{
           container: { backgroundColor: "rgba(0,0,0,0.95)" },
-          button: { filter: "drop-shadow(0 0 10px rgba(0,0,0,0.5))" },
+          button: {
+            filter: "drop-shadow(0 0 10px rgba(0,0,0,0.5))",
+          },
         }}
       />
     </div>

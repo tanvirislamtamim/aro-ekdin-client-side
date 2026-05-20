@@ -1,85 +1,309 @@
 import { Link, NavLink } from "react-router";
- 
+import { useState, useRef, useEffect, useContext, } from "react";
+import { AuthContext } from "../../Context/AuthContext/AuthContext";
+// ⚠️ আপনার প্রজেক্টের সঠিক AuthContext পাথটি নিচে দিন (যেমন: '../../providers/AuthProvider')
+// import { AuthContext } from "../../providers/AuthProvider"; 
 
 const Navbar = () => {
-    // Premium Active/Inactive Style with subtle glow
-    const navItemStyle = ({ isActive }) =>
-        `relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-2xl sm:rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-            isActive
-                ? "text-[#ea580c] sm:bg-white/10 sm:text-white drop-shadow-[0_0_12px_rgba(234,88,12,0.4)]" 
-                : "text-gray-400 hover:text-white hover:bg-white/5"
-        }`;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const dropdownRef = useRef(null);
 
-    return (
-        <nav className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto z-50">
-            {/* Glassmorphism Container with Optimized Spacing */}
-            <div className="flex items-center justify-around sm:justify-center gap-1 sm:gap-4 bg-[#0a0a0a]/80 backdrop-blur-3xl px-3 py-2 rounded-[2.5rem] sm:rounded-full border border-white/10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] w-full">
+  
+  const { user, logOut } = useContext(AuthContext); 
+  
+  // সাময়িক টেস্ট করার জন্য ডামি ডেটা (কনটেক্সট লিঙ্ক করলে নিচের ২ লাইন কেটে দিবেন)
+  
 
-                {/* Left Side Items */}
-                <div className="flex items-center gap-1 sm:gap-3">
-                    <NavLink to="/" className={navItemStyle}>
-                        {({ isActive }) => (
-                            <>
-                                <svg className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 2.5 : 2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                </svg>
-                                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">Home</span>
-                            </>
-                        )}
-                    </NavLink>
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
 
-                    <NavLink to="/players" className={navItemStyle}>
-                        {({ isActive }) => (
-                            <>
-                                <svg className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 2.5 : 2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">Players</span>
-                            </>
-                        )}
-                    </NavLink>
-                </div>
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-                {/* Center Logo Section - Diamond/Circular Cut */}
-                <Link to="/">
-                <div className="relative mx-1 sm:mx-3 shrink-0">
-                    <div className="absolute inset-0 bg-[#ea580c]/20 blur-xl rounded-full"></div>
-                    <img
-                        src="https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145975/Logo_qzb1xk.jpg"
-                        alt="Logo"
-                        className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white/20 shadow-2xl transition-transform duration-500 hover:rotate-360"
+  // Premium Active/Inactive Style with subtle glow
+  const navItemStyle = ({ isActive }) =>
+    `relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-2xl sm:rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+      isActive
+        ? "text-[#ea580c] sm:bg-white/10 sm:text-white drop-shadow-[0_0_12px_rgba(234,88,12,0.4)]"
+        : "text-gray-400 hover:text-white hover:bg-white/5"
+    }`;
+
+  return (
+    <nav className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto z-50">
+      {/* Glassmorphism Container with Optimized Spacing */}
+      <div className="flex items-center justify-around sm:justify-center gap-1 sm:gap-4 bg-[#0a0a0a]/80 backdrop-blur-3xl px-3 py-2 rounded-[2.5rem] sm:rounded-full border border-white/10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] w-full">
+        {/* Left Side Items */}
+        <div className="flex items-center gap-1 sm:gap-3">
+          <NavLink to="/" className={navItemStyle}>
+            {({ isActive }) => (
+              <>
+                <svg
+                  className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={isActive ? 2.5 : 2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">
+                  Home
+                </span>
+              </>
+            )}
+          </NavLink>
+
+          <NavLink to="/players" className={navItemStyle}>
+            {({ isActive }) => (
+              <>
+                <svg
+                  className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={isActive ? 2.5 : 2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">
+                  Players
+                </span>
+              </>
+            )}
+          </NavLink>
+        </div>
+
+        {/* Center Logo Section - Diamond/Circular Cut */}
+        <Link to="/">
+          <div className="relative mx-1 sm:mx-3 shrink-0">
+            <div className="absolute inset-0 bg-[#ea580c]/20 blur-xl rounded-full"></div>
+            <img
+              src="https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145975/Logo_qzb1xk.jpg"
+              alt="Logo"
+              className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white/20 shadow-2xl transition-transform duration-500 hover:rotate-360"
+            />
+          </div>
+        </Link>
+
+        {/* Right Side Items */}
+        <div className="flex items-center gap-1 sm:gap-3">
+          <NavLink to="/gallery" className={navItemStyle}>
+            {({ isActive }) => (
+              <>
+                <svg
+                  className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={isActive ? 2.5 : 2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">
+                  Gallery
+                </span>
+              </>
+            )}
+          </NavLink>
+
+          {/* More Dropdown - Replaced About */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-3 py-2 sm:px-5 sm:py-2.5 rounded-2xl sm:rounded-full transition-all duration-500 ease-in-out text-gray-400 hover:text-white hover:bg-white/5"
+            >
+              <svg
+                className="w-6 h-6 sm:w-5 sm:h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"
+                />
+              </svg>
+              <span className="text-[10px] sm:text-sm font-semibold tracking-wide">
+                More
+              </span>
+            </button>
+
+            {/* Dropdown Menu - Opens Upwards */}
+            <div
+              className={`absolute bottom-full mb-2 right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 w-40 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] overflow-hidden transition-all duration-300 ease-in-out ${
+                isDropdownOpen
+                  ? "opacity-100 translate-y-0 visible"
+                  : "opacity-0 translate-y-2 invisible"
+              }`}
+            >
+              {/* Dashboard Link */}
+              <NavLink
+                to="/dashboard/rules"
+                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 ${
+                    isActive
+                      ? "text-[#ea580c] bg-white/5"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`
+                }
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  />
+                </svg>
+                Dashboard
+              </NavLink>
+
+              {/* Conditional Rendering using ternary operator */}
+              {user ? (
+                /* ======= LOGOUT LINK ======= */
+                <button
+                  onClick={() => {
+                    logOut()
+                      .then(() => {
+                        setIsDropdownOpen(false);
+                      })
+                      .catch((error) => console.error(error));
+                  }}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 text-gray-400 hover:text-red-400 hover:bg-white/5"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                     />
-                </div>
-                </Link>
+                  </svg>
+                  Logout
+                </button>
+              ) : (
+                /* ======= LOGIN & REGISTER LINKS ======= */
+                <>
+                  <NavLink
+                    to="/login"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 ${
+                        isActive
+                          ? "text-[#ea580c] bg-white/5"
+                          : "text-gray-400 hover:text-white hover:bg-white/5"
+                      }`
+                    }
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                      />
+                    </svg>
+                    Login
+                  </NavLink>
 
-                {/* Right Side Items */}
-                <div className="flex items-center gap-1 sm:gap-3">
-                    <NavLink to="/gallery" className={navItemStyle}>
-                        {({ isActive }) => (
-                            <>
-                                <svg className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 2.5 : 2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">Gallery</span>
-                            </>
-                        )}
-                    </NavLink>
+                  <NavLink
+                    to="/register"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 ${
+                        isActive
+                          ? "text-[#ea580c] bg-white/5"
+                          : "text-gray-400 hover:text-white hover:bg-white/5"
+                      }`
+                    }
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                      />
+                    </svg>
+                    Register
+                  </NavLink>
+                </>
+              )}
 
-                    <NavLink to="/about" className={navItemStyle}>
-                        {({ isActive }) => (
-                            <>
-                                <svg className={`w-6 h-6 sm:w-5 sm:h-5 transition-transform duration-300 ${isActive ? "scale-110" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 2.5 : 2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span className="text-[10px] sm:text-sm font-semibold tracking-wide">About</span>
-                            </>
-                        )}
-                    </NavLink>
-                </div>
-
+              <NavLink
+                to="/about"
+                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 ${
+                    isActive
+                      ? "text-[#ea580c] bg-white/5"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`
+                }
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                About
+              </NavLink>
             </div>
-        </nav>
-    );
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
