@@ -3,7 +3,7 @@ import React from 'react';
 
 const ErrorPage = ({ code = 404, title = "Page Not Found", message = "The page you are looking for might have been removed or is temporarily unavailable." }) => {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#0a0f1e] via-[#03050b] to-black flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen w-full bg-linear-to-br from-[#0a0f1e] via-[#03050b] to-black flex items-center justify-center p-6 relative overflow-hidden">
       
      
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 50 50%22 width=%2250%22 height=%2250%22%3E%3Cpath fill=%22none%22 stroke=%22rgba(56,123,255,0.08)%22 stroke-width=%221%22 d=%22M0 0h50v50H0z%22/%3E%3C/svg%3E')] bg-repeat opacity-30 pointer-events-none"></div>
@@ -16,7 +16,7 @@ const ErrorPage = ({ code = 404, title = "Page Not Found", message = "The page y
       <div className="relative max-w-2xl w-full bg-black/40 backdrop-blur-xl rounded-3xl border border-blue-500/30 shadow-2xl p-8 md:p-12 text-center transition-all duration-300 hover:border-blue-400/60 hover:scale-[1.01]">
         
         <div className="flex justify-center items-center gap-1 md:gap-2 mb-6">
-          <span className="text-7xl md:text-9xl font-black bg-gradient-to-b from-slate-200 to-slate-500 bg-clip-text text-transparent">
+          <span className="text-7xl md:text-9xl font-black bg-linear-to-b from-slate-200 to-slate-500 bg-clip-text text-transparent">
             {String(code)[0]}
           </span>
           <div className="w-20 h-20 md:w-32 md:h-32 flex items-center justify-center">
@@ -24,13 +24,13 @@ const ErrorPage = ({ code = 404, title = "Page Not Found", message = "The page y
               <circle cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="5" fill="none" strokeDasharray="10 5" />
             </svg>
           </div>
-          <span className="text-7xl md:text-9xl font-black bg-gradient-to-b from-slate-200 to-slate-500 bg-clip-text text-transparent">
+          <span className="text-7xl md:text-9xl font-black bg-linear-to-b from-slate-200 to-slate-500 bg-clip-text text-transparent">
             {String(code)[2] || String(code)[1]}
           </span>
         </div>
 
       
-        <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
+        <h1 className="text-2xl md:text-4xl font-bold bg-linear-to-r from-white to-blue-200 bg-clip-text text-transparent mb-4">
           {title}
         </h1>
         <p className="text-gray-300 text-base md:text-lg max-w-md mx-auto mb-8">
@@ -41,7 +41,7 @@ const ErrorPage = ({ code = 404, title = "Page Not Found", message = "The page y
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <button 
             onClick={() => window.location.href = '/'} 
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 rounded-full font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-200 hover:-translate-y-1 flex items-center gap-2"
+            className="px-6 py-3 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 rounded-full font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-200 hover:-translate-y-1 flex items-center gap-2"
           >
             🏠 Home
           </button>

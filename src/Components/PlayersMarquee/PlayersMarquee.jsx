@@ -18,21 +18,21 @@ export default function Ultimate3DCarousel() {
     <div className="w-full min-h-screen bg-[#030303] flex flex-col items-center pt-10 justify-center overflow-hidden font-sans pb-0 lg:pb-12">
       
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:32px_32px]"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] bg-size-[32px_32px]"></div>
       </div>
 
       <div className="relative z-20 text-center mb-24 space-y-3 px-4">
         <p className="text-sm uppercase tracking-[0.4em] text-cyan-400/80 font-medium">Virtual Exhibition</p>
-        <h1 className="text-5xl md:text-8xl font-extrabold tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent italic filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+        <h1 className="text-5xl md:text-8xl font-extrabold tracking-tighter bg-linear-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent italic filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
           MOMENTS OF ACTION
         </h1>
-        <div className="h-0.5 w-40 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto rounded-full"></div>
+        <div className="h-0.5 w-40 bg-linear-to-r from-transparent via-blue-500 to-transparent mx-auto rounded-full"></div>
       </div>
 
       <div className="relative w-full flex items-center justify-center perspective-[3000px] py-20">
         
-        <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#030303] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#030303] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-[#030303] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-[#030303] to-transparent z-10 pointer-events-none"></div>
 
         {/* 3D Carousel Spinner - the main animated element */}
         <div className="carousel-spinner-3d">
@@ -54,7 +54,7 @@ export default function Ultimate3DCarousel() {
                     loading="lazy"
                   />
                   
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90 p-6 flex flex-col justify-end">
+                  <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/90 p-6 flex flex-col justify-end">
                     <div className="w-fit px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/50 text-cyan-200 text-xs mb-3">
                       Action #{index + 1}
                     </div>

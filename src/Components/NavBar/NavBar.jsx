@@ -1,19 +1,18 @@
 import { Link, NavLink } from "react-router";
-import { useState, useRef, useEffect, useContext, } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext/AuthContext";
+import "./NavBar.css";
 // ⚠️ আপনার প্রজেক্টের সঠিক AuthContext পাথটি নিচে দিন (যেমন: '../../providers/AuthProvider')
-// import { AuthContext } from "../../providers/AuthProvider"; 
+// import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   const dropdownRef = useRef(null);
 
-  
-  const { user, logOut } = useContext(AuthContext); 
-  
+  const { user, logOut } = useContext(AuthContext);
+
   // সাময়িক টেস্ট করার জন্য ডামি ডেটা (কনটেক্সট লিঙ্ক করলে নিচের ২ লাইন কেটে দিবেন)
-  
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -272,6 +271,32 @@ const Navbar = () => {
                 </>
               )}
 
+              <NavLink
+                to="/videos"
+                onClick={() => setIsDropdownOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 text-sm transition-all duration-300 ${
+                    isActive
+                      ? "text-[#ea580c] bg-white/5"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`
+                }
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-6 4h4a2 2 0 002-2V8a2 2 0 00-2-2H9a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
+                Videos
+              </NavLink>
               <NavLink
                 to="/about"
                 onClick={() => setIsDropdownOpen(false)}

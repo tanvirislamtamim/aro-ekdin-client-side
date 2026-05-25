@@ -219,7 +219,7 @@ const Footer = () => {
             }}
             className="fixed top-5 right-5 z-50"
           >
-            <div className="relative px-5 py-3 rounded-2xl border border-white/20 bg-gradient-to-br from-indigo-600/90 to-purple-700/90 backdrop-blur-xl shadow-2xl shadow-indigo-900/50 text-white font-semibold tracking-wide">
+            <div className="relative px-5 py-3 rounded-2xl border border-white/20 bg-linear-to-br from-indigo-600/90 to-purple-700/90 backdrop-blur-xl shadow-2xl shadow-indigo-900/50 text-white font-semibold tracking-wide">
               <div className="absolute inset-0 rounded-2xl bg-white/10 blur-md" />
               <div className="relative flex items-center gap-2">
                 <span className="text-lg">📋</span>
@@ -239,7 +239,7 @@ const Footer = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute top-[-10%] left-[-10%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] border-[1px] border-blue-500/10 rounded-full shadow-[0_0_50px_rgba(37,99,235,0.05)]"
+          className="absolute top-[-10%] left-[-10%] w-75 md:w-125 h-75 md:h-125 border border-blue-500/10 rounded-full shadow-[0_0_50px_rgba(37,99,235,0.05)]"
         />
         <div className="absolute top-1/4 left-1/3 w-64 md:w-96 h-64 md:h-96 bg-blue-600/5 blur-[100px] animate-pulse" />
       </div>
@@ -254,7 +254,7 @@ const Footer = () => {
             viewport={{ once: false, amount: 0.2 }}
             className="lg:col-span-7 group relative"
           >
-            <div className="h-full p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 backdrop-blur-2xl transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10">
+            <div className="h-full p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] bg-linear-to-br from-white/10 to-white/2 border border-white/10 backdrop-blur-2xl transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10">
               <motion.div
                 variants={logoVariants}
                 initial="hidden"
@@ -265,7 +265,7 @@ const Footer = () => {
                 <motion.img
                   src="https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145975/Logo_qzb1xk.jpg"
                   alt="Team Logo"
-                  className="relative w-28 h-28 md:w-36 md:h-36 rounded-[2rem] md:rounded-[2.5rem] object-cover border-2 border-white/20 shadow-2xl cursor-pointer transition-all duration-300 hover:scale-110 hover:rotate-6 hover:border-blue-400"
+                  className="relative w-28 h-28 md:w-36 md:h-36 rounded-4xl md:rounded-[2.5rem] object-cover border-2 border-white/20 shadow-2xl cursor-pointer transition-all duration-300 hover:scale-110 hover:rotate-6 hover:border-blue-400"
                   whileHover={{ scale: 1.05, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 />
@@ -286,7 +286,7 @@ const Footer = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false }}
-                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-red-500 text-5xl md:text-7xl font-black italic transition-all duration-500 group-hover:scale-105 group-hover:from-blue-300 group-hover:via-gray-100 group-hover:to-red-400"
+                className="inline-block text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-white to-red-500 text-5xl md:text-7xl font-black italic transition-all duration-500 group-hover:scale-105 group-hover:from-blue-300 group-hover:via-gray-100 group-hover:to-red-400"
               >
                 ARO EKDIN
               </motion.span>
@@ -338,7 +338,7 @@ const Footer = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="lg:col-span-5 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] bg-white/[0.03] border border-white/10 transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10"
+            className="lg:col-span-5 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] bg-white/3 border border-white/10 transition-all duration-500 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10"
           >
             <motion.h3 
               className="text-blue-500 font-bold uppercase text-xs mb-12 tracking-wider transition-all duration-300 hover:tracking-widest hover:text-blue-400"
@@ -381,7 +381,7 @@ const Footer = () => {
                     aroekdin41@gmail.com
                   </p>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/0 to-blue-500/0 rounded-lg transition-all duration-500 group-hover/item:from-blue-500/5 group-hover/item:via-blue-500/5" />
+                <div className="absolute inset-0 bg-linear-to-r from-blue-500/0 via-blue-500/0 to-blue-500/0 rounded-lg transition-all duration-500 group-hover/item:from-blue-500/5 group-hover/item:via-blue-500/5" />
               </motion.div>
 
               {/* Phone */}
@@ -417,7 +417,7 @@ const Footer = () => {
                     +880 1828 034641
                   </p>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/0 to-green-500/0 rounded-lg transition-all duration-500 group-hover/item:from-green-500/5 group-hover/item:via-green-500/5" />
+                <div className="absolute inset-0 bg-linear-to-r from-green-500/0 via-green-500/0 to-green-500/0 rounded-lg transition-all duration-500 group-hover/item:from-green-500/5 group-hover/item:via-green-500/5" />
               </motion.div>
             </div>
 

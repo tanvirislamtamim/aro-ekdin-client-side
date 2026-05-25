@@ -77,7 +77,7 @@ const TopPlayers = () => {
               >
                 <div className="relative h-96 overflow-hidden">
                   {isEmpty ? (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-gray-800 to-gray-900 flex items-center justify-center">
                       <div className="text-center">
                         <div className="text-6xl mb-2 opacity-30">✨</div>
                         <p className="text-gray-500 text-sm">Coming Soon</p>
@@ -90,8 +90,8 @@ const TopPlayers = () => {
                       className="player-image w-full h-full object-cover object-center"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-black/30 via-transparent to-black/30 pointer-events-none"></div>
 
                   {!isEmpty && (
                     <div className="absolute top-5 right-5 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center border border-white/20 transition-all duration-300 group-hover:bg-black/70 group-hover:scale-110 group-hover:border-cyan-400">
@@ -124,7 +124,7 @@ const TopPlayers = () => {
                       </p>
                     </>
                   )}
-                  <div className="w-12 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mt-5 transition-all duration-500 group-hover:w-24"></div>
+                  <div className="w-12 h-px bg-linear-to-r from-transparent via-cyan-500 to-transparent mx-auto mt-5 transition-all duration-500 group-hover:w-24"></div>
                 </div>
               </motion.div>
             );

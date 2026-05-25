@@ -27,6 +27,7 @@ import Rules from "./Layout/Dashboard/Rules";
 import Photos from "./Layout/Dashboard/Photos";
 import AdminRoute from "./Routes/AdminRoute";
 import DeveloperRoute from "./Routes/DeveloperRoute";
+import Videos from "./Layout/Videos/Videos";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         path: "gallery",
         Component: Gallery,
       },
+      {
+        path: "videos",
+        Component: Videos,
+      }
     ],
   },
   {

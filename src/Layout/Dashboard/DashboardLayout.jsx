@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, NavLink, Link, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, Link, } from "react-router-dom";
 import {
   FaThLarge,
   FaCog,
@@ -12,6 +12,7 @@ import {
   FaUserPlus,
   FaBook,
   FaImage,
+  FaVideo,
 } from "react-icons/fa";
 import { FaUserShield } from "react-icons/fa6";
 import useAuth from "../../hooks/useAuth";
@@ -20,49 +21,10 @@ import Swal from "sweetalert2";
 
 const DashBoardLayout = () => {
   const { role, roleLoading } = useUserRole();
-  const { user, logOut } = useAuth(); // Added logOut from useAuth
-  const navigate = useNavigate();
+  const { user, } = useAuth(); // Added logOut from useAuth
+  
 
-  const handleLogout = async () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You will be logged out of your account.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3b82f6',
-      cancelButtonColor: '#ef4444',
-      background: '#0f172a',
-      color: '#fff',
-      confirmButtonText: 'Yes, logout',
-      cancelButtonText: 'Cancel'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await logOut();
-          Swal.fire({
-            title: 'Logged Out!',
-            text: 'You have been successfully logged out.',
-            icon: 'success',
-            background: '#0f172a',
-            color: '#fff',
-            confirmButtonColor: '#3b82f6',
-            timer: 2000,
-            showConfirmButton: false,
-          });
-          navigate('/');
-        } catch (error) {
-          Swal.fire({
-            title: 'Error!',
-            text: 'Failed to logout. Please try again.',
-            icon: 'error',
-            background: '#0f172a',
-            color: '#fff',
-            confirmButtonColor: '#3b82f6',
-          });
-        }
-      }
-    });
-  };
+  
 
   const menuItems = [
     {
@@ -75,8 +37,8 @@ const DashBoardLayout = () => {
           ? [
               { name: "Add Player", path: "/dashboard/addPlayer", icon: <FaUserPlus /> },
               { name: "Update Player", path: "/dashboard/updatePlayer", icon: <FaUserEdit /> },
-              {name: "Manage Photos", path: "/dashboard/photos", icon: <FaImage /> 
-},
+              {name: "Manage Photos", path: "/dashboard/photos", icon: <FaImage /> },
+              
               
             ]
           : []),

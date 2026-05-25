@@ -176,7 +176,7 @@ const Photos = () => {
           <div key={cat} className="mb-16">
             <div className="flex items-center gap-3 mb-8">
               <h3 className="text-3xl font-bold text-white capitalize">{cat} Photos</h3>
-              <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/50 to-transparent"></div>
+              <div className="h-px flex-1 bg-linear-to-r from-cyan-500/50 to-transparent"></div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -194,7 +194,7 @@ const Photos = () => {
                     />
                     
                     {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4">
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4">
                       <button
                         onClick={() => deleteMutation.mutate(photo._id)}
                         className="absolute top-4 right-4 p-3 bg-red-500/20 backdrop-blur-md text-red-400 hover:bg-red-500 hover:text-white rounded-full transition-all border border-white/10"

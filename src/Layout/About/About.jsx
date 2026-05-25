@@ -58,7 +58,7 @@ const FloatingParticles = () => {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute rounded-full bg-gradient-to-r from-blue-400/20 to-red-400/20 will-change-transform"
+          className="absolute rounded-full bg-linear-to-r from-blue-400/20 to-red-400/20 will-change-transform"
           style={{
             width: p.size,
             height: p.size,
@@ -88,7 +88,7 @@ const ScrollProgress = ({ scrollYProgress }) => {
   const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 25, restDelta: 0.001 });
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-red-500 to-blue-500 z-50 origin-left"
+      className="fixed top-0 left-0 right-0 h-1 bg-linear-to-r from-blue-500 via-red-500 to-blue-500 z-50 origin-left"
       style={{ scaleX, willChange: "transform" }}
     />
   );
@@ -201,7 +201,7 @@ const AboutUs = () => {
   const handleImageMouseLeave = useCallback(() => setImageMousePos({ x: 0, y: 0 }), []);
 
   return (
-    <div className="relative bg-gradient-to-b from-black via-gray-950 to-black text-white overflow-x-hidden">
+    <div className="relative bg-linear-to-b from-black via-gray-950 to-black text-white overflow-x-hidden">
       <ScrollProgress scrollYProgress={scrollYProgress} />
 
       <motion.div
@@ -234,9 +234,9 @@ const AboutUs = () => {
         initial={{ opacity: 0, scale: 0.95, y: 50 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
+        className="relative h-screen min-h-175 flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-black/80 to-red-900/40 z-0" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-900/40 via-black/80 to-red-900/40 z-0" />
         <FloatingShapes mousePosition={mousePosition} />
 
         <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
@@ -270,7 +270,7 @@ const AboutUs = () => {
               >
                 {word === "Aro" ? (
                   <>
-                    <span className="bg-gradient-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
+                    <span className="bg-linear-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
                       Ar
                     </span>
 
@@ -282,7 +282,7 @@ const AboutUs = () => {
                     />
                   </>
                 ) : (
-                  <span className="bg-gradient-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
+                  <span className="bg-linear-to-r from-blue-500 via-white to-black/50 bg-clip-text text-transparent">
                     {word}
                   </span>
                 )}
@@ -294,7 +294,7 @@ const AboutUs = () => {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="w-32 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto rounded-full mb-8"
+            className="w-32 h-1 bg-linear-to-r from-blue-500 to-red-500 mx-auto rounded-full mb-8"
           />
 
           <motion.p
@@ -333,7 +333,7 @@ const AboutUs = () => {
             className="space-y-6 bg-black/40 backdrop-blur-sm p-8 rounded-3xl border border-white/10"
             whileHover={{ scale: 1.01 }}
           >
-            <motion.h2 className="text-4xl font-bold border-l-4 border-blue-500 pl-4 bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">
+            <motion.h2 className="text-4xl font-bold border-l-4 border-blue-500 pl-4 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent">
               About Us
             </motion.h2>
             <motion.p className="text-gray-300 leading-relaxed text-lg">
@@ -372,7 +372,7 @@ const AboutUs = () => {
             className="relative group"
           >
             <motion.div
-              className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-red-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition"
+              className="absolute -inset-1 bg-linear-to-r from-blue-600 to-red-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition"
             />
             <motion.div
               className="relative rounded-2xl overflow-hidden shadow-2xl"
@@ -383,7 +383,7 @@ const AboutUs = () => {
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
               <img src="https://res.cloudinary.com/do8awe7fc/image/upload/q_auto/f_auto/v1777145679/IMG_2008_uxdtnc.jpg" alt="Team playing" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
             </motion.div>
           </motion.div>
         </div>
@@ -396,7 +396,7 @@ const AboutUs = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-black italic mb-16 bg-gradient-to-r from-blue-500  to-white  bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl font-black italic mb-16 bg-linear-to-r from-blue-500  to-white  bg-clip-text text-transparent"
           >
             Our Values
           </motion.h2>
@@ -423,7 +423,7 @@ const AboutUs = () => {
                 >
                   {val.icon}
                 </motion.div>
-                <h3 className={`text-2xl font-bold mb-3 bg-gradient-to-r ${val.color} bg-clip-text text-transparent`}>
+                <h3 className={`text-2xl font-bold mb-3 bg-linear-to-r ${val.color} bg-clip-text text-transparent`}>
                   {val.title}
                 </h3>
                 <p className="text-gray-300">{val.desc}</p>
@@ -441,10 +441,10 @@ const AboutUs = () => {
         className="container mx-auto px-4 py-16 md:py-24"
       >
         <div className="relative group">
-          <div className="absolute -inset-2 bg-gradient-to-r from-blue-600 to-red-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition" />
+          <div className="absolute -inset-2 bg-linear-to-r from-blue-600 to-red-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition" />
           <div className="relative bg-black/60 backdrop-blur-md rounded-3xl overflow-hidden border border-white/10">
             <div className="p-8 text-center">
-              <h2 className="text-4xl md:text-5xl font-black italic mb-3 pb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-white">
+              <h2 className="text-4xl md:text-5xl font-black italic mb-3 pb-4 text-transparent bg-clip-text bg-linear-to-r from-blue-800 to-white">
                 Our Playing Ground
               </h2>
               <p className="text-gray-300 mb-6">Practice sessions are held at our ground every evening.</p>
@@ -456,7 +456,7 @@ const AboutUs = () => {
                 <span>Mohisher Ghop, Alfadanga, Faridpur, Dhaka, Bangladesh.</span>
               </div>
             </div>
-            <div className="w-full h-[450px] relative">
+            <div className="w-full h-112.5 relative">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1832.775843455156!2d89.73007355954498!3d23.259395554596466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ffc9fa0acf9673%3A0x72e014ea3c63bd39!2sMohisharghop%20Government%20Primary%20School!5e0!3m2!1sen!2sbd!4v1775473690863!5m2!1sen!2sbd"
                 width="100%"
@@ -476,7 +476,7 @@ const AboutUs = () => {
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent w-full"
+        className="h-px bg-linear-to-r from-transparent via-blue-500 to-transparent w-full"
       />
     </div>
   );
