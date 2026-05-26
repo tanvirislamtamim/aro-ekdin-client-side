@@ -4,11 +4,12 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Download from "yet-another-react-lightbox/plugins/download";
 import "yet-another-react-lightbox/styles.css";
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 import { useQuery } from "@tanstack/react-query";
 
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import axios from "axios";
+
 
 const Gallery = () => {
   const [open, setOpen] = useState(false);
@@ -93,13 +94,9 @@ const currentPhotos = Array.isArray(allPhotos)
   };
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        Loading...
-      </div>
-    );
+    return <LoadingSpinner></LoadingSpinner>
   }
-  console.log(currentPhotos.url);
+  
   return (
     <div className="relative bg-linear-to-br from-black via-gray-950 to-black text-white py-20 px-4 overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import axios from "axios"; 
+
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [otpError, setOtpError] = useState(""); // OTP এরর মেসেজের জন্য
+    const axiosSecure = useAxiosSecure();
 
     // ১. ১ম ধাপ: ইমেইল সাবমিট ও ওটিপি পাঠানো
     const handleSendOtp = async (e) => {
@@ -24,7 +26,7 @@ const ForgotPassword = () => {
         setIsLoading(true);
         setOtpError("");
         try {
-            const response = await axios.post("http://localhost:3000/forgot-password-otp", { email });
+            const response = await axiosSecure.post("/forgot-password-otp", { email });
             
             if (response.data.success) {
                 Swal.fire({
@@ -56,7 +58,7 @@ const ForgotPassword = () => {
         setIsLoading(true);
         setOtpError("");
         try {
-            const response = await axios.post("http://localhost:3000/verify-forgot-otp", { email, otp });
+            const response = await axiosSecure.post("/verify-forgot-otp", { email, otp });
             
             if (response.data.success) {
                 Swal.fire({
@@ -94,7 +96,7 @@ const ForgotPassword = () => {
 
         setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:3000/reset-password", { 
+            const response = await axiosSecure.post("/reset-password", { 
                 email, 
                 otp, 
                 newPassword 

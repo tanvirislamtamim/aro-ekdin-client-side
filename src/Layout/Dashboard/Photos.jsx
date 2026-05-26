@@ -8,8 +8,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Photos = () => {
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState("new");
-  const [title, setTitle] = useState(""); // Title এর জন্য স্টেট
-  const [year, setYear] = useState(new Date().getFullYear()); // Year এর জন্য স্টেট
+  const [title, setTitle] = useState("");
+  const [year, setYear] = useState(new Date().getFullYear());
   const queryClient = useQueryClient();
   const axiosSecure = useAxiosSecure();
 
@@ -42,15 +42,15 @@ const Photos = () => {
       return axiosSecure.post("/photos", {
         url: res.data.secure_url,
         category,
-        title, // নতুন ফিল্ড
-        year, // নতুন ফিল্ড
+        title,
+        year,
         public_id: res.data.public_id,
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["photos"]);
       setFile(null);
-      setTitle(""); // রিসেট
+      setTitle("");
       Swal.fire({
         icon: "success",
         title: "Uploaded!",
@@ -76,6 +76,25 @@ const Photos = () => {
     },
   });
 
+  // ডিলিট কনফার্মেশন হ্যান্ডলার
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      background: "#1a1a1a",
+      color: "#fff",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id);
+      }
+    });
+  };
+
   return (
     <div className="p-6 min-h-screen text-white">
       <h2 className="text-4xl font-bold mb-8 text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-300 pb-3 to-indigo-400">
@@ -83,7 +102,6 @@ const Photos = () => {
       </h2>
 
       <div className="bg-white/3 p-8 rounded-3xl border border-white/10 mb-10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-        {/* Decorative Glow */}
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-[100px]"></div>
 
         <h3 className="text-xl pb-2 font-bold mb-6 text-white flex items-center gap-2">
@@ -94,11 +112,8 @@ const Photos = () => {
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
-          {/* File Input */}
           <div className="group">
-            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">
-              Upload Image
-            </label>
+            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Upload Image</label>
             <div className="bg-[#121212] p-1 rounded-xl border border-white/10 group-hover:border-cyan-500/50 transition-colors">
               <input
                 type="file"
@@ -108,11 +123,8 @@ const Photos = () => {
             </div>
           </div>
 
-          {/* Title Input */}
           <div className="group">
-            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">
-              Photo Title
-            </label>
+            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Photo Title</label>
             <input
               type="text"
               placeholder="Enter title..."
@@ -122,11 +134,8 @@ const Photos = () => {
             />
           </div>
 
-          {/* Year Input */}
           <div className="group">
-            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">
-              Year
-            </label>
+            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Year</label>
             <input
               type="number"
               placeholder="2026"
@@ -136,11 +145,8 @@ const Photos = () => {
             />
           </div>
 
-          {/* Category Select */}
           <div className="group">
-            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">
-              Category
-            </label>
+            <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2 block">Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -166,7 +172,6 @@ const Photos = () => {
         </button>
       </div>
 
-      {/* Gallery Grid */}
       {isLoading ? (
         <div className="text-center py-20 text-cyan-400">
           <FaSpinner className="animate-spin text-5xl mx-auto" />
@@ -185,7 +190,6 @@ const Photos = () => {
                   key={photo._id}
                   className="group relative bg-white/2 border border-white/5 rounded-3xl overflow-hidden hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-2 shadow-lg"
                 >
-                  {/* Image Container */}
                   <div className="relative h-64 overflow-hidden">
                     <img
                       src={photo.url}
@@ -193,18 +197,16 @@ const Photos = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     
-                    {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4">
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-100 group-hover: transition-opacity duration-500 flex flex-col justify-end p-4">
                       <button
-                        onClick={() => deleteMutation.mutate(photo._id)}
-                        className="absolute top-4 right-4 p-3 bg-red-500/20 backdrop-blur-md text-red-400 hover:bg-red-500 hover:text-white rounded-full transition-all border border-white/10"
+                        onClick={() => handleDelete(photo._id)}
+                        className="absolute right-4 p-3 bg-blur backdrop-blur-md text-red-400 hover:bg-red-500 hover:text-white rounded-full transition-all border border-white/10"
                       >
                         <FaTrash />
                       </button>
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-4 bg-white/2">
                     <h4 className="font-bold text-white truncate">{photo.title || "Untitled"}</h4>
                     <p className="text-xs font-medium text-cyan-400/80 mt-1 uppercase tracking-wider">{photo.year}</p>
